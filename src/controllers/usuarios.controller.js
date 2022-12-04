@@ -47,7 +47,7 @@ export const putUsuario = async (req, res) => {
 
         if(result.affectedRows <= 0){
             return res.status(404).json({
-                "msg":"Usuarion inexistente"
+                "msg":"Usuario inexistente"
             });
         }
 
@@ -71,7 +71,7 @@ export const deleteUsuario = async(req,res)=>{
 
     if (result.affectedRows <= 0) {
         return res.status(404).json({
-            "msg":"Usuarion inexistente"
+            "msg":"Usuario inexistente"
         });
     }
 
