@@ -4,6 +4,7 @@ import { pool } from "./src/db.js";
 import userRoutes from './src/routes/usuarios.routes.js'
 import vehiculosRouter from "./src/routes/vehiculos.routes.js";
 import bodyParser from "body-parser";
+import clientesRouter from "./src/routes/clientes.routes.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json())
 
 app.use(userRoutes)
 app.use(vehiculosRouter)
+app.use(clientesRouter)
 // /login, /usuarios, /vehiculos, /clientes.
 
 

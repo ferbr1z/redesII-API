@@ -25,7 +25,7 @@ export const getUsuario = async (req, res) => {
     }
 }
 
-export const postUsarios = async (req, res) => {
+export const postUsuario = async (req, res) => {
     try {
         const { nombre, pass } = req.body;
         await pool.query('INSERT INTO usuarios(nombre,pass) VALUES(?,?)', [nombre, pass]);
