@@ -29,8 +29,11 @@ export const getCliente = async (req, res) => {
 
 export const postCliente = async (req, res) => {
     try {
-        const { usuario } = req.body;
-        await pool.query('INSERT INTO clientes(usuario) VALUES(?)', [usuario]);
+        const { idUsuario } = req.body;
+
+
+
+        await pool.query('INSERT INTO clientes(usuario) VALUES(?)', [idUsuario]);
         res.status(200).json({
             "msg": "Cliente creado"
         })
