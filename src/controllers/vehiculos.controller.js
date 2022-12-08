@@ -31,7 +31,7 @@ export const postVehiculo = async (req, res) => {
     try {
         const { marca, matricula, duenho } = req.body;
         await pool.query('INSERT INTO vehiculos(marca,matricula,duenho) VALUES(?,?,?)', [marca, matricula, duenho]);
-        res.status(200).json({
+        res.status(201).json({
             "msg": "Vehiculo creado"
         })
     } catch (error) {

@@ -21,6 +21,7 @@ app.use(clientesRouter)
 // /login, /usuarios, /vehiculos, /clientes.
 
 
+
 app.get("/", async (req, res) => {
     const [result] = await pool.query("SELECT 1+1 AS RESULT");
     res.json(result);

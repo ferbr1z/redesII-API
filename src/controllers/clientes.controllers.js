@@ -29,16 +29,23 @@ export const getCliente = async (req, res) => {
 
 export const postCliente = async (req, res) => {
     try {
-        const { idUsuario } = req.body;
+        const { usuario } = req.body;
 
+        const [userExiste] = await pool.query("select * from clientes where usuario=?", [usuario]);
+        
+        if (userExiste.length > 0) {
+            res.status(500).json({
+                "error": "Ese usuario ya es un cliente"
+            })
+        } else {
 
-
-        await pool.query('INSERT INTO clientes(usuario) VALUES(?)', [idUsuario]);
-        res.status(200).json({
-            "msg": "Cliente creado"
-        })
+            await pool.query('INSERT INTO clientes(usuario) VALUES(?)', [usuario]);
+            res.status(201).json({
+                "msg": "Cliente creado"
+            })
+        }
     } catch (error) {
-        res.status(500).json({ error:error.message })
+        res.status(500).json({ error: error.message })
     }
 }
 

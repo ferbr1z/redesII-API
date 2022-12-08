@@ -1,6 +1,7 @@
 
 import { pool } from "../db.js";
 
+// devuelve todos los usuarios
 export const getUsuarios = async (req, res) => {
     try {
         const [result] = await pool.query('SELECT id,nombre FROM usuarios');
@@ -10,10 +11,13 @@ export const getUsuarios = async (req, res) => {
     }
 }
 
+// Obtiene usuario desde id
 export const getUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         const [result] = await pool.query('SELECT id,nombre FROM usuarios WHERE id=?', [id]);
+
+        // si la longitud es igual o menor a 0, es porque no ha encontrado coincidencias en la BD
         if (result.length <= 0) {
             return res.status(404).json({
                 msg: "Usuario no existente"
@@ -25,6 +29,7 @@ export const getUsuario = async (req, res) => {
     }
 }
 
+// Necesita nombre y pass para crear usuario
 export const postUsuario = async (req, res) => {
     try {
         const { nombre, pass } = req.body;
@@ -32,11 +37,11 @@ export const postUsuario = async (req, res) => {
         const [userExiste] = await pool.query("select * from usuarios where nombre=?", [nombre]);
         if (userExiste.length > 0) {
             res.status(500).json({
-                "error":"Ya existe un usuario con ese nobmre"
+                "error": "Ya existe un usuario con ese nobmre"
             })
         } else {
             await pool.query('INSERT INTO usuarios(nombre,pass) VALUES(?,?)', [nombre, pass]);
-            res.status(200).json({
+            res.status(201).json({
                 "msg": "usuario creado"
             })
         }
